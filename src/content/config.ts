@@ -82,9 +82,9 @@ export const config = {
     finaleOutro: 'Happy five years. Here is to forever.',
     playTitle: 'Play together',
     playSubtitle: 'Two little games for two laptops in two cities.',
-    matchWinCompetitive: 'PLACEHOLDER: a sweet line for the end of a competitive match',
-    matchWinCoop: 'PLACEHOLDER: a sweet line for finishing the board together',
-    quizEnd: 'PLACEHOLDER: a sweet line for the end of the quiz',
+    matchWinCompetitive: 'You can have the trophy today, since I already got the ultimate prize.',
+    matchWinCoop: 'One game down, a lifetime of turns left with you',
+    quizEnd: 'Every question was just an excuse to look back at how lucky I am to have you',
   },
 
   /**

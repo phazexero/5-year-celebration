@@ -17,8 +17,43 @@
           }
         },
 
-        "match": { ".validate": "newData.hasChildren()" },
-        "matchBest": { ".validate": "newData.hasChildren()" },
+        "match": {
+          ".validate": "newData.hasChildren(['gameId', 'status', 'mode', 'deck', 'scores', 'turn', 'moves', 'seq', 'startedAt'])",
+          "gameId": { ".validate": "newData.isString() && newData.val().length <= 32" },
+          "status": { ".validate": "newData.val() === 'playing' || newData.val() === 'done'" },
+          "mode": { ".validate": "newData.val() === 'competitive' || newData.val() === 'coop'" },
+          "turn": { ".validate": "newData.val() === 'me' || newData.val() === 'her'" },
+          "deck": {
+            "$k": { ".validate": "newData.hasChildren(['y', 'i'])" }
+          },
+          "flipped": {
+            "$k": { ".validate": "newData.isNumber()" }
+          },
+          "mismatch": { ".validate": "newData.isBoolean()" },
+          "matched": {
+            "$k": { ".validate": "newData.val() === 'me' || newData.val() === 'her'" }
+          },
+          "scores": {
+            ".validate": "newData.hasChildren(['me', 'her'])",
+            "me": { ".validate": "newData.isNumber()" },
+            "her": { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          },
+          "moves": { ".validate": "newData.isNumber()" },
+          "seq": { ".validate": "newData.isNumber()" },
+          "startedAt": { ".validate": "newData.isNumber()" },
+          "finishedAt": { ".validate": "newData.isNumber()" },
+          "lastMatch": { ".validate": "newData.hasChildren(['card', 'by', 'seq'])" },
+          "$other": { ".validate": false }
+        },
+        "matchBest": {
+          ".validate": "newData.hasChildren(['timeMs', 'moves', 'at', 'gameId'])",
+          "timeMs": { ".validate": "newData.isNumber()" },
+          "moves": { ".validate": "newData.isNumber()" },
+          "at": { ".validate": "newData.isNumber()" },
+          "gameId": { ".validate": "newData.isString()" },
+          "$other": { ".validate": false }
+        },
         "quiz": { ".validate": "newData.hasChildren()" },
 
         "$other": { ".validate": false }

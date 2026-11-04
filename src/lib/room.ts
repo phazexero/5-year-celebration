@@ -65,6 +65,16 @@ export async function transact<T>(
   return result.committed
 }
 
+/** milliseconds to add to Date.now() to get the database server's clock */
+export function useServerOffset(db: Database | null): number {
+  const [offset, setOffset] = useState(0)
+  useEffect(() => {
+    if (!db) return
+    return onValue(ref(db, '.info/serverTimeOffset'), (snap) => setOffset(Number(snap.val()) || 0))
+  }, [db])
+  return offset
+}
+
 /** wipes a game's state for both players */
 export async function resetGame(db: Database, game: GameKey): Promise<void> {
   await set(roomRef(db, game), null)
