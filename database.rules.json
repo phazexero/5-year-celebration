@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      "anniversary": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+
+        "players": {
+          "$role": {
+            ".validate": "($role === 'me' || $role === 'her') && newData.hasChildren(['uid', 'online'])",
+            "uid": { ".validate": "newData.isString() && newData.val().length <= 128" },
+            "online": { ".validate": "newData.isBoolean()" },
+            "lastSeen": { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "match": { ".validate": "newData.hasChildren()" },
+        "matchBest": { ".validate": "newData.hasChildren()" },
+        "quiz": { ".validate": "newData.hasChildren()" },
+
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}

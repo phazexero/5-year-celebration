@@ -1,16 +1,24 @@
-import { BackLink } from '../components/BackLink'
-import { config } from '../content/config'
+import { lazy, Suspense } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { PageLoader } from '../components/PageLoader'
+import { RealtimeProvider } from '../lib/realtime'
+import Lobby from './Lobby'
 
+const MemoryMatch = lazy(() => import('./games/MemoryMatch'))
+const KnowMe = lazy(() => import('./games/KnowMe'))
+
+/** everything under /play shares one Firebase connection and one presence */
 export default function Play() {
   return (
-    <main className="paper min-h-screen">
-      <nav className="mx-auto max-w-6xl px-6 pt-6">
-        <BackLink />
-      </nav>
-      <div className="mx-auto max-w-3xl px-6 pt-20 text-center">
-        <h1 className="font-display text-5xl font-semibold">{config.copy.playTitle}</h1>
-        <p className="mt-4 text-[var(--color-ink-soft)]">Games are coming in the next phase.</p>
-      </div>
-    </main>
+    <RealtimeProvider>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route index element={<Lobby />} />
+          <Route path="match" element={<MemoryMatch />} />
+          <Route path="quiz" element={<KnowMe />} />
+          <Route path="*" element={<Lobby />} />
+        </Routes>
+      </Suspense>
+    </RealtimeProvider>
   )
 }
