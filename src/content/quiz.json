@@ -1,0 +1,21 @@
+{
+  "_help": "about: \"me\" (the question is about myName in config.ts) or \"her\" (about herName). options: optional list for multiple choice; leave it out for a free text answer. The game plays rounds in this order, up to roundsPerGame.",
+  "roundsPerGame": 10,
+  "questions": [
+    { "about": "her", "text": "PLACEHOLDER: What is my comfort food after a long day?", "options": ["Maggi", "Biryani", "Ice cream", "Momos"] },
+    { "about": "me", "text": "PLACEHOLDER: What is my favourite way to spend a Sunday?", "options": ["Sleeping in", "Gaming", "Long walk", "Cooking"] },
+    { "about": "her", "text": "PLACEHOLDER: Which song reminds me of us the most?" },
+    { "about": "me", "text": "PLACEHOLDER: Where would I go on a dream holiday?", "options": ["Japan", "Iceland", "Italy", "Bali"] },
+    { "about": "her", "text": "PLACEHOLDER: What is my biggest pet peeve?", "options": ["Late replies", "Loud chewing", "Messy rooms", "Spoilers"] },
+    { "about": "me", "text": "PLACEHOLDER: What was the first movie we watched together (on call or in person)?" },
+    { "about": "her", "text": "PLACEHOLDER: What would I order at a café?", "options": ["Cappuccino", "Cold coffee", "Hot chocolate", "Green tea"] },
+    { "about": "me", "text": "PLACEHOLDER: What is the nickname I secretly like the most?" },
+    { "about": "her", "text": "PLACEHOLDER: Which superpower would I pick?", "options": ["Teleportation", "Flying", "Mind reading", "Time travel"] },
+    { "about": "me", "text": "PLACEHOLDER: What am I most likely to be doing at 2am?", "options": ["Coding", "Scrolling reels", "Talking to you", "Asleep, obviously"] },
+    { "about": "her", "text": "PLACEHOLDER: What is the one thing I would save in a fire (no people or pets)?" },
+    { "about": "me", "text": "PLACEHOLDER: Which of these scares me the most?", "options": ["Heights", "Spiders", "Deep water", "Public speaking"] },
+    { "about": "her", "text": "PLACEHOLDER: What is my go-to karaoke song?" },
+    { "about": "me", "text": "PLACEHOLDER: What is my favourite season?", "options": ["Summer", "Monsoon", "Autumn", "Winter"] },
+    { "about": "her", "text": "PLACEHOLDER: What did I think when we first talked?", "options": ["He's funny", "He's weird", "He's cute", "Who is this guy?"] }
+  ]
+}

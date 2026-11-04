@@ -1,0 +1,12 @@
+node_modules
+dist
+raw_photos/
+.env
+.env.local
+.env.*.local
+*.log
+.firebase/
+firebase-debug.log
+database-debug.log
+.DS_Store
+Thumbs.db

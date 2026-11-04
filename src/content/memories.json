@@ -1,0 +1,312 @@
+{
+  "year1": [
+    {
+      "file": "01.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 1"
+    },
+    {
+      "file": "02.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 2"
+    },
+    {
+      "file": "03.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 3"
+    },
+    {
+      "file": "04.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 4"
+    },
+    {
+      "file": "05.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 5"
+    },
+    {
+      "file": "06.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 6"
+    },
+    {
+      "file": "07.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 7"
+    },
+    {
+      "file": "08.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 8"
+    },
+    {
+      "file": "09.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 9"
+    },
+    {
+      "file": "10.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 1, photo 10"
+    }
+  ],
+  "year2": [
+    {
+      "file": "01.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 1"
+    },
+    {
+      "file": "02.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 2"
+    },
+    {
+      "file": "03.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 3"
+    },
+    {
+      "file": "04.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 4"
+    },
+    {
+      "file": "05.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 5"
+    },
+    {
+      "file": "06.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 6"
+    },
+    {
+      "file": "07.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 7"
+    },
+    {
+      "file": "08.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 8"
+    },
+    {
+      "file": "09.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 9"
+    },
+    {
+      "file": "10.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 2, photo 10"
+    }
+  ],
+  "year3": [
+    {
+      "file": "01.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 1"
+    },
+    {
+      "file": "02.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 2"
+    },
+    {
+      "file": "03.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 3"
+    },
+    {
+      "file": "04.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 4"
+    },
+    {
+      "file": "05.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 5"
+    },
+    {
+      "file": "06.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 6"
+    },
+    {
+      "file": "07.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 7"
+    },
+    {
+      "file": "08.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 8"
+    },
+    {
+      "file": "09.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 9"
+    },
+    {
+      "file": "10.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 3, photo 10"
+    }
+  ],
+  "year4": [
+    {
+      "file": "01.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 1"
+    },
+    {
+      "file": "02.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 2"
+    },
+    {
+      "file": "03.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 3"
+    },
+    {
+      "file": "04.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 4"
+    },
+    {
+      "file": "05.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 5"
+    },
+    {
+      "file": "06.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 6"
+    },
+    {
+      "file": "07.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 7"
+    },
+    {
+      "file": "08.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 8"
+    },
+    {
+      "file": "09.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 9"
+    },
+    {
+      "file": "10.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 4, photo 10"
+    }
+  ],
+  "year5": [
+    {
+      "file": "01.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 1"
+    },
+    {
+      "file": "02.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 2"
+    },
+    {
+      "file": "03.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 3"
+    },
+    {
+      "file": "04.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 4"
+    },
+    {
+      "file": "05.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 5"
+    },
+    {
+      "file": "06.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 6"
+    },
+    {
+      "file": "07.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 7"
+    },
+    {
+      "file": "08.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 8"
+    },
+    {
+      "file": "09.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 9"
+    },
+    {
+      "file": "10.webp",
+      "date": "YYYY-MM-DD",
+      "place": "PLACEHOLDER place",
+      "caption": "PLACEHOLDER caption for year 5, photo 10"
+    }
+  ]
+}
