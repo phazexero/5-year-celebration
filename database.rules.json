@@ -24,7 +24,7 @@
           "mode": { ".validate": "newData.val() === 'competitive' || newData.val() === 'coop'" },
           "turn": { ".validate": "newData.val() === 'me' || newData.val() === 'her'" },
           "deck": {
-            "$k": { ".validate": "newData.hasChildren(['y', 'i'])" }
+            "$k": { ".validate": "newData.hasChild('y') && (newData.hasChild('i') || newData.hasChild('u'))" }
           },
           "flipped": {
             "$k": { ".validate": "newData.isNumber()" }
@@ -84,6 +84,30 @@
             "$k": { ".validate": "newData.hasChildren(['q', 'correct'])" }
           },
           "seq": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        },
+
+        "gallery": {
+          "meta": {
+            "$year": {
+              ".validate": "$year === 'y1' || $year === 'y2' || $year === 'y3' || $year === 'y4' || $year === 'y5'",
+              "$id": {
+                ".validate": "newData.hasChildren(['caption', 'date', 'place', 'at'])",
+                "caption": { ".validate": "newData.isString() && newData.val().length <= 300" },
+                "date": { ".validate": "newData.isString() && newData.val().length <= 20" },
+                "place": { ".validate": "newData.isString() && newData.val().length <= 120" },
+                "at": { ".validate": "newData.isNumber()" },
+                "w": { ".validate": "newData.isNumber()" },
+                "h": { ".validate": "newData.isNumber()" },
+                "$other": { ".validate": false }
+              }
+            }
+          },
+          "data": {
+            "$id": {
+              ".validate": "newData.isString() && newData.val().beginsWith('data:image/') && newData.val().length <= 1200000"
+            }
+          },
           "$other": { ".validate": false }
         },
 

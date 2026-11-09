@@ -19,7 +19,7 @@ export type YearInfo = { title: string; subtitle: string; theme: YearTheme }
 
 export const config = {
   myName: 'Deb',
-  herName: 'HER_NAME',
+  herName: 'Aditi',
 
   /** IANA timezone used for the day counter and the finale unlock */
   timezone: 'Asia/Kolkata',
@@ -30,9 +30,9 @@ export const config = {
   /** finale unlocks at this local time in `timezone` (YYYY-MM-DDTHH:mm) */
   anniversaryUnlock: '2026-11-10T00:00',
 
-  /** PLACEHOLDER cities: name + coordinates (right click a spot on Google Maps to copy lat, lng) */
-  myCity: { name: 'MY_CITY', lat: 22.5726, lng: 88.3639 } as Place,
-  herCity: { name: 'HER_CITY', lat: 12.9716, lng: 77.5946 } as Place,
+  /** cities: name + coordinates (right click a spot on Google Maps to copy lat, lng) */
+  myCity: { name: 'Kolkata', lat: 22.5726, lng: 88.3639 } as Place,
+  herCity: { name: 'Bengaluru', lat: 12.9716, lng: 77.5946 } as Place,
 
   /** optional: places you met in person. Delete entries or leave the array empty. */
   meetups: [

@@ -1,11 +1,13 @@
 import { serverTimestamp } from 'firebase/database'
 import { otherRole, type Role } from '../content/config'
-import { allPhotos, memoriesFor, type Memory } from './content'
+import { YEARS } from './content'
+import { itemsFor, type GalleryItem, type Upload } from './gallery'
 
 /* Memory Lane Match: pure game rules, applied inside database transactions */
 
 export type MatchMode = 'competitive' | 'coop'
-export type Card = { y: number; i: number }
+/** a static photo (y + i, its index in memories.json) or an uploaded one (y + u, its id) */
+export type Card = { y: number; i?: number; u?: string }
 
 export type MatchState = {
   gameId: string
@@ -44,10 +46,21 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-/** fresh shuffled board: 8 random photos from across all five years, each twice */
-export function newMatch(mode: MatchMode): MatchState {
-  const picks = shuffle(allPhotos()).slice(0, PAIRS)
-  const deck = shuffle(picks.flatMap((p) => [{ y: p.year, i: p.index }, { y: p.year, i: p.index }]))
+const cardFor = (item: GalleryItem, staticIndex: number): Card =>
+  item.upload ? { y: item.year, u: item.upload.id } : { y: item.year, i: staticIndex }
+
+/** every photo in the gallery, static and uploaded, as a card */
+export function allCards(uploads: Record<number, Upload[]>): Card[] {
+  return YEARS.flatMap((y) => {
+    let s = 0
+    return itemsFor(y, uploads).map((item) => cardFor(item, item.upload ? -1 : s++))
+  })
+}
+
+/** fresh shuffled board: up to 8 random photos from across all five years, each twice */
+export function newMatch(mode: MatchMode, pool: Card[]): MatchState {
+  const picks = shuffle(pool).slice(0, PAIRS)
+  const deck = shuffle(picks.flatMap((c) => [{ ...c }, { ...c }]))
   return {
     gameId: Math.random().toString(36).slice(2, 10),
     status: 'playing',
@@ -64,8 +77,14 @@ export function newMatch(mode: MatchMode): MatchState {
 export const matchedBy = (s: MatchState | null, k: number): Role | undefined => s?.matched?.[`c${k}`]
 export const matchedCount = (s: MatchState | null) => Object.keys(s?.matched ?? {}).length
 
-export const samePhoto = (a: Card, b: Card) => a.y === b.y && a.i === b.i
-export const memoryOf = (c: Card): Memory | undefined => memoriesFor(c.y)[c.i]
+export const samePhoto = (a: Card, b: Card) => a.y === b.y && (a.u ?? a.i) === (b.u ?? b.i)
+
+/** the gallery entry a card shows (undefined if the photo was deleted since) */
+export function itemOf(c: Card, uploads: Record<number, Upload[]>): GalleryItem | undefined {
+  const items = itemsFor(c.y, uploads)
+  if (c.u) return items.find((x) => x.upload?.id === c.u)
+  return items.filter((x) => !x.upload)[c.i ?? -1]
+}
 
 export function canFlip(s: MatchState | null, role: Role, k: number): boolean {
   if (!s || s.status !== 'playing') return false

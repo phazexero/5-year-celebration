@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { config, nameOf, otherRole, type Role } from '../../content/config'
 import { GameShell } from '../../components/GameShell'
 import { Heart } from '../../components/Icons'
-import { PhotoImage } from '../../components/PhotoImage'
-import { photoUrl } from '../../lib/content'
+import { GalleryPhoto } from '../../components/GalleryPhoto'
+import { useUploads, type GalleryItem, type Upload } from '../../lib/gallery'
 import {
   applyBest,
   applyFlip,
@@ -14,7 +14,8 @@ import {
   formatDuration,
   matchedBy,
   matchedCount,
-  memoryOf,
+  allCards,
+  itemOf,
   MISMATCH_MS,
   newMatch,
   type Card,
@@ -32,6 +33,7 @@ const accentOf = (y: number) => config.years[y - 1]?.theme.accent ?? 'var(--acce
 
 function MemoryCard({
   card,
+  item,
   index,
   faceUp,
   matchedRole,
@@ -39,14 +41,14 @@ function MemoryCard({
   onFlip,
 }: {
   card: Card
+  item?: GalleryItem
   index: number
   faceUp: boolean
   matchedRole?: Role
   clickable: boolean
   onFlip: () => void
 }) {
-  const m = memoryOf(card)
-  const label = faceUp ? `Card ${index + 1}: ${m?.caption ?? 'photo'}` : `Card ${index + 1}, face down`
+  const label = faceUp ? `Card ${index + 1}: ${item?.caption || 'photo'}` : `Card ${index + 1}, face down`
   return (
     <button
       type="button"
@@ -84,11 +86,11 @@ function MemoryCard({
             boxShadow: matchedRole ? `0 0 0 3px ${accentOf(card.y)}, 0 10px 24px -14px rgb(60 30 20 / 0.7)` : undefined,
           }}
         >
-          <PhotoImage
-            src={photoUrl(card.y, m?.file ?? '')}
-            alt={m?.caption ?? ''}
+          <GalleryPhoto
+            source={item?.source ?? { kind: 'static', year: card.y, file: '' }}
+            alt={item?.caption ?? ''}
             accent={accentOf(card.y)}
-            label={`Year ${card.y} · #${card.i + 1}`}
+            label={`Year ${card.y}`}
             eager
             className="h-full w-full rounded-xl"
           />
@@ -109,7 +111,15 @@ function MemoryCard({
 
 /* --------------------------- match toast --------------------------- */
 
-function MatchToast({ state, loaded }: { state: MatchState | null; loaded: boolean }) {
+function MatchToast({
+  state,
+  loaded,
+  uploads,
+}: {
+  state: MatchState | null
+  loaded: boolean
+  uploads: Record<number, Upload[]>
+}) {
   const [shown, setShown] = useState<{ card: Card; by: Role; key: string } | null>(null)
   const lastId = useRef<string | null | undefined>(undefined)
 
@@ -129,7 +139,7 @@ function MatchToast({ state, loaded }: { state: MatchState | null; loaded: boole
     return () => window.clearTimeout(t)
   }, [id, loaded]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const m = shown ? memoryOf(shown.card) : undefined
+  const m = shown ? itemOf(shown.card, uploads) : undefined
   return (
     <AnimatePresence>
       {shown && m && (
@@ -143,8 +153,8 @@ function MatchToast({ state, loaded }: { state: MatchState | null; loaded: boole
           role="status"
         >
           <div className="card flex items-center gap-4 p-3 pr-5">
-            <PhotoImage
-              src={photoUrl(shown.card.y, m.file)}
+            <GalleryPhoto
+              source={m.source}
               alt={m.caption}
               accent={accentOf(shown.card.y)}
               eager
@@ -167,7 +177,17 @@ function MatchToast({ state, loaded }: { state: MatchState | null; loaded: boole
 
 /* ------------------------------ setup ------------------------------ */
 
-function Setup({ onStart, best }: { onStart: (mode: MatchMode) => void; best: MatchBest | null }) {
+function Setup({
+  onStart,
+  best,
+  pool,
+  ready,
+}: {
+  onStart: (mode: MatchMode) => void
+  best: MatchBest | null
+  pool: number
+  ready: boolean
+}) {
   const [mode, setMode] = useState<MatchMode>('competitive')
   const modes: { id: MatchMode; title: string; text: string }[] = [
     { id: 'competitive', title: 'Competitive', text: 'Take turns. A match scores a point and earns another go.' },
@@ -205,9 +225,20 @@ function Setup({ onStart, best }: { onStart: (mode: MatchMode) => void; best: Ma
           </button>
         ))}
       </div>
-      <button type="button" className="btn mt-10 px-8 py-3 text-lg" onClick={() => onStart(mode)}>
-        Shuffle and start
-      </button>
+      {ready && pool < 2 ? (
+        <p className="mt-10 text-[var(--color-ink-soft)]">
+          Add at least two photos to the gallery first (any year), then come back to play.
+        </p>
+      ) : (
+        <button type="button" className="btn mt-10 px-8 py-3 text-lg" onClick={() => onStart(mode)} disabled={!ready}>
+          {ready ? 'Shuffle and start' : 'Gathering photos…'}
+        </button>
+      )}
+      {ready && pool >= 2 && pool < 8 && (
+        <p className="mt-3 text-xs text-[var(--color-ink-soft)]">
+          Only {pool} photos so far, so the board has {pool * 2} cards. Add more for the full 16.
+        </p>
+      )}
     </motion.section>
   )
 }
@@ -353,6 +384,7 @@ export default function MemoryMatch() {
   const { value: state, loaded } = useRoomValue<MatchState>(rt.db, 'match')
   const { value: best } = useRoomValue<MatchBest>(rt.db, 'matchBest')
   const offset = useServerOffset(rt.db)
+  const uploads = useUploads()
   const now = useNow(state?.mode === 'coop' && state.status === 'playing' ? 500 : 60000)
   const serverNow = now + offset
 
@@ -380,9 +412,9 @@ export default function MemoryMatch() {
   }, [state?.status, state?.gameId, state?.finishedAt]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const start = (mode: MatchMode) =>
-    transact<MatchState>(rt.db, 'match', (s) => (s && s.status === 'playing' ? undefined : newMatch(mode)))
+    transact<MatchState>(rt.db, 'match', (s) => (s && s.status === 'playing' ? undefined : newMatch(mode, allCards(uploads.byYear))))
   const again = () =>
-    transact<MatchState>(rt.db, 'match', (s) => (s && s.status === 'playing' ? undefined : newMatch(s?.mode ?? 'competitive')))
+    transact<MatchState>(rt.db, 'match', (s) => (s && s.status === 'playing' ? undefined : newMatch(s?.mode ?? 'competitive', allCards(uploads.byYear))))
   const changeMode = () => transact<MatchState>(rt.db, 'match', (s) => (s && s.status === 'done' ? null : undefined))
   const flip = (k: number) => transact<MatchState>(rt.db, 'match', (s) => applyFlip(s, role, k)).catch(() => {})
 
@@ -390,7 +422,8 @@ export default function MemoryMatch() {
   if (!loaded) {
     body = <p className="py-24 text-center text-[var(--color-ink-soft)]">Loading the board…</p>
   } else if (!state) {
-    body = <Setup onStart={start} best={best} />
+    const pool = allCards(uploads.byYear).length
+    body = <Setup onStart={start} best={best} pool={pool} ready={uploads.status !== 'loading'} />
   } else if (state.status === 'done') {
     body = <EndScreen state={state} role={role} best={best} onAgain={again} onChangeMode={changeMode} />
   } else {
@@ -418,6 +451,7 @@ export default function MemoryMatch() {
               <MemoryCard
                 key={`${state.gameId}-${k}`}
                 card={card}
+                item={itemOf(card, uploads.byYear)}
                 index={k}
                 faceUp={!!mb || flipped.includes(k)}
                 matchedRole={mb}
@@ -434,7 +468,7 @@ export default function MemoryMatch() {
   return (
     <GameShell game="match" title="Memory Lane Match">
       {body}
-      <MatchToast state={state} loaded={loaded} />
+      <MatchToast state={state} loaded={loaded} uploads={uploads.byYear} />
     </GameShell>
   )
 }

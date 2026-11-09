@@ -67,7 +67,8 @@ body {
   border-radius: 999px;
   padding: 0.7rem 1.4rem;
   font-weight: 600;
-  background: var(--accent);
+  /* darkened a touch so white text stays readable on any theme colour */
+  background: color-mix(in oklab, var(--accent) 82%, black);
   color: #fff;
   box-shadow: 0 6px 18px -8px color-mix(in oklab, var(--accent) 80%, black);
   transition:

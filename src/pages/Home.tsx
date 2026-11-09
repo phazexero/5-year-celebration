@@ -18,7 +18,7 @@ function TogetherCounter() {
         {days.toLocaleString('en-IN')}
       </div>
       <div className="mt-2 text-sm font-semibold tracking-[0.2em] uppercase opacity-70">days together</div>
-      <div className="mt-1 text-sm tabular-nums opacity-60">
+      <div className="mt-1 text-sm tabular-nums opacity-75">
         and {hours}h {String(minutes).padStart(2, '0')}m {String(seconds).padStart(2, '0')}s
       </div>
     </div>

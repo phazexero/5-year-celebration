@@ -29,7 +29,7 @@ Everything personal lives in `src/content/`. You never need to touch a component
 | File | What it holds |
 | --- | --- |
 | `config.ts` | names, start date, unlock time and timezone, both cities (lat/lng), meetups for the map, the 5 year titles, subtitles and colours, and small bits of copy (gate hint, tagline, end of game messages, quiz titles) |
-| `memories.json` | 10 entries per year: `file`, `date` (`YYYY-MM-DD`), `place`, `caption` |
+| `memories.json` | optional photos shipped as files: `file`, `date` (`YYYY-MM-DD`), `place`, `caption`. Most photos are easier to add from the website |
 | `letters.ts` | one letter per year and the final anniversary letter. Separate paragraphs with a blank line |
 | `quiz.json` | quiz questions. `about` is `"me"` or `"her"`; add `options` for multiple choice, leave it out for free text. `roundsPerGame` sets the number of rounds |
 
@@ -39,16 +39,13 @@ To get coordinates for a city or meetup, right click the spot in Google Maps and
 
 ### Photos
 
-1. Put originals in `raw_photos/year1/` … `raw_photos/year5/` (10 per year). This folder is gitignored, so originals never leave your laptop.
-2. Run:
-   ```bash
-   pip install Pillow            # once (add pillow-heif for iPhone .HEIC files)
-   python scripts/compress.py    # or: python scripts/compress.py --year 3
-   ```
-   It fixes rotation, resizes to a 1600px long edge, saves WebP at quality 80 as `public/photos/yearN/01.webp`, `02.webp` … ordered by the date the photo was taken (filename if there is no date), and prints a size summary.
-3. Fill in `memories.json` in the same order (the script prints which original became which number).
+There are two ways to add photos, and they can be mixed.
 
-Any photo that is missing shows a themed placeholder tile, so the site never looks broken while you work.
+**From the website (easiest).** Open any year, press **Add photos**, pick up to 20 at a time, give each a caption, date and place, and upload. Anyone who knows the site password can add, edit or delete photos, so Aditi can add hers too. Photos appear instantly for both of you, in the year wall, the chapter cover on the home page and the Memory Match deck.
+
+How it stays free: Firebase Storage needs a billing account, so each photo is shrunk in the browser (1400px long edge, WebP, roughly 150 to 400 KB) and saved in the Realtime Database. The free plan's storage and monthly download allowance comfortably cover a few hundred photos viewed by two people; you can watch usage in Firebase under Realtime Database, then Usage. iPhone HEIC files can't be read by most browsers: export them as JPG first (or set the iPhone camera to "Most Compatible").
+
+**From files in the repo (optional).** Put originals in `raw_photos/year1/` … `raw_photos/year5/`, run `pip install Pillow` once and then `python scripts/compress.py`, and add an entry per photo to `src/content/memories.json` (`file`, `date`, `place`, `caption`). These show before any uploaded photos in each year. `memories.json` ships empty so placeholders don't clutter the walls.
 
 ### Music (optional)
 
@@ -125,6 +122,8 @@ rooms/anniversary/
   match/                memory game state (deck, flipped, matched, scores, turn, mode, …)
   matchBest/            best co-op result
   quiz/                 quiz state (round order, answers, reveal, scores)
+  gallery/meta/y1..y5/  uploaded photo captions, dates, places
+  gallery/data/         uploaded photos (shrunk, as data URLs)
 ```
 
 Every move goes through a Firebase transaction, so simultaneous clicks can't corrupt the state. Each screen renders only from the database, which is why a refresh or a dropped connection picks up exactly where the game was. Either player can press **Reset game** at any time.

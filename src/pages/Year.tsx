@@ -8,22 +8,25 @@ import { Envelope } from '../components/Envelope'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
 import { Lightbox } from '../components/Lightbox'
 import { Polaroid } from '../components/Polaroid'
-import { memoriesFor } from '../lib/content'
+import { useYearItems } from '../lib/gallery'
+import { UploadDialog } from '../components/UploadDialog'
 
 export default function Year() {
   const { n } = useParams()
   const year = Number(n)
   const info = config.years[year - 1]
   const [open, setOpen] = useState<number | null>(null)
+  const [adding, setAdding] = useState(false)
+  const { items, status } = useYearItems(Number.isInteger(year) ? year : 0)
 
   useEffect(() => {
     setOpen(null)
+    setAdding(false)
     window.scrollTo({ top: 0 })
   }, [year])
 
   if (!info || !Number.isInteger(year)) return <Navigate to="/" replace />
 
-  const memories = memoriesFor(year)
   const letter = letters[`year${year}` as keyof typeof letters]
   const total = config.years.length
   const { background, accent, text } = info.theme
@@ -67,20 +70,41 @@ export default function Year() {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pb-20" aria-label="Photos">
-        {memories.length === 0 ? (
-          <p className="text-center opacity-60">No photos for this year yet. Add them in memories.json.</p>
+        {items.length === 0 ? (
+          <div className="card mx-auto max-w-lg px-8 py-12 text-center">
+            <p className="font-display text-2xl font-semibold">{status === 'loading' ? 'Gathering the photos…' : 'No photos in this chapter yet'}</p>
+            {status !== 'loading' && (
+              <p className="mt-2 text-sm opacity-70">
+                {status === 'ready' ? 'Add the first one and it shows up here for both of you.' : 'Photos can be added once the site is connected to Firebase.'}
+              </p>
+            )}
+            {status === 'ready' && (
+              <button type="button" className="btn mt-6" onClick={() => setAdding(true)}>
+                Add photos
+              </button>
+            )}
+          </div>
         ) : (
-          <motion.ul
-            key={`w${year}`}
-            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5"
-            initial="hidden"
-            animate="show"
-            variants={{ show: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } } }}
-          >
-            {memories.map((m, i) => (
-              <Polaroid key={`${year}-${i}`} memory={m} year={year} index={i} onOpen={() => setOpen(i)} />
-            ))}
-          </motion.ul>
+          <>
+            <motion.ul
+              key={`w${year}`}
+              className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5"
+              initial="hidden"
+              animate="show"
+              variants={{ show: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } } }}
+            >
+              {items.map((item, i) => (
+                <Polaroid key={item.key} item={item} index={i} onOpen={() => setOpen(i)} />
+              ))}
+            </motion.ul>
+            {status === 'ready' && (
+              <div className="mt-12 text-center">
+                <button type="button" className="btn btn-ghost" onClick={() => setAdding(true)}>
+                  + Add photos to this year
+                </button>
+              </div>
+            )}
+          </>
         )}
       </section>
 
@@ -112,7 +136,8 @@ export default function Year() {
         )}
       </nav>
 
-      <Lightbox year={year} memories={memories} index={open} onChange={setOpen} />
+      <Lightbox year={year} items={items} index={open} onChange={setOpen} />
+      <UploadDialog year={year} open={adding} onClose={() => setAdding(false)} />
     </main>
   )
 }
