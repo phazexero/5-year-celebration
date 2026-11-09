@@ -64,7 +64,7 @@ export const config = {
     },
     {
       title: 'Year 5: Still Choosing You',
-      subtitle: 'Five years, two cities, and still the easiest decision I make every single day.',
+      subtitle: 'Five years, many cities, and still the easiest decision I make every single day.',
       theme: { background: '#f1eaf6', accent: '#7c4dab', text: '#2c1a3d' },
     },
   ] as YearInfo[],
