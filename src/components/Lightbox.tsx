@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { deleteUpload, updateUpload, type GalleryItem } from '../lib/gallery'
+import { deleteUpload, friendlyError, updateUpload, type GalleryItem } from '../lib/gallery'
 import { formatDate } from '../lib/time'
 import { GalleryPhoto } from './GalleryPhoto'
 import { ArrowLeft, ArrowRight, Close, MapPin } from './Icons'
@@ -41,7 +41,7 @@ function UploadTools({ item, onDeleted }: { item: GalleryItem; onDeleted: () => 
       await fn()
       after()
     } catch (e) {
-      setError((e as Error).message || 'That didn’t work. Try again?')
+      setError(friendlyError(e))
     } finally {
       setBusy(false)
     }

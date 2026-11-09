@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
-import { fileDate, uploadPhoto } from '../lib/gallery'
+import { fileDate, friendlyError, uploadPhoto } from '../lib/gallery'
 import { Close } from './Icons'
 
 type Row = {
@@ -76,7 +76,7 @@ export function UploadDialog({ year, open, onClose }: { year: number; open: bool
         await uploadPhoto(year, r)
         patch(r.key, { status: 'done' })
       } catch (e) {
-        patch(r.key, { status: 'error', error: (e as Error).message || 'Upload failed' })
+        patch(r.key, { status: 'error', error: friendlyError(e) })
       }
     }
     setBusy(false)

@@ -254,6 +254,15 @@ export async function deleteUpload(year: number, id: string) {
   dataCache.delete(id)
 }
 
+/** turns Firebase errors into something a person can act on */
+export function friendlyError(e: unknown): string {
+  const msg = (e as Error)?.message ?? ''
+  if (/PERMISSION_DENIED/i.test(msg))
+    return 'The database refused this. In Firebase, open Realtime Database, then Rules, paste the latest database.rules.json and press Publish.'
+  if (/network|offline|timed out/i.test(msg)) return 'No connection right now. Check the internet and try again.'
+  return msg || 'That didn’t work. Try again?'
+}
+
 /** today's date or the file's own date, as YYYY-MM-DD */
 export function fileDate(file: File): string {
   const d = new Date(file.lastModified || Date.now())
