@@ -43,28 +43,28 @@ export const config = {
   /** one entry per year, in order. Colours are any CSS colour. */
   years: [
     {
-      title: 'Year 1: PLACEHOLDER',
-      subtitle: 'PLACEHOLDER subtitle for the first year',
+      title: 'Year 1: The "Hi" That Started It All',
+      subtitle: 'Late night texts, college walks, first calls, and not knowing what the future held.',
       theme: { background: '#fbeee6', accent: '#d9485f', text: '#3b1f24' },
     },
     {
-      title: 'Year 2: PLACEHOLDER',
-      subtitle: 'PLACEHOLDER subtitle for the second year',
+      title: 'Year 2: Professional Video Callers through COVID',
+      subtitle: 'Frozen screens, dodgy Wi-Fi, and random drama through college.',
       theme: { background: '#eef3e7', accent: '#4f7a3a', text: '#22301b' },
     },
     {
-      title: 'Year 3: PLACEHOLDER',
-      subtitle: 'PLACEHOLDER subtitle for the third year',
+      title: 'Year 3: Frequent Flyer Hearts',
+      subtitle: 'Counting down days, hunting cheap tickets for planes and buses, and the best hugs in the country.',
       theme: { background: '#e9f0f7', accent: '#2f6ea5', text: '#14283b' },
     },
     {
-      title: 'Year 4: PLACEHOLDER',
-      subtitle: 'PLACEHOLDER subtitle for the fourth year',
+      title: 'Year 4: MBA and Chaos',
+      subtitle: 'Balancing studies, work, and a relationship across two cities.',
       theme: { background: '#f6efdc', accent: '#c07a12', text: '#3a2a0c' },
     },
     {
-      title: 'Year 5: PLACEHOLDER',
-      subtitle: 'PLACEHOLDER subtitle for the fifth year',
+      title: 'Year 5: Still Choosing You',
+      subtitle: 'Five years, two cities, and still the easiest decision I make every single day.',
       theme: { background: '#f1eaf6', accent: '#7c4dab', text: '#2c1a3d' },
     },
   ] as YearInfo[],
