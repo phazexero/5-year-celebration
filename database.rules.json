@@ -54,7 +54,38 @@
           "gameId": { ".validate": "newData.isString()" },
           "$other": { ".validate": false }
         },
-        "quiz": { ".validate": "newData.hasChildren()" },
+        "quiz": {
+          ".validate": "newData.hasChildren(['gameId', 'status', 'order', 'round', 'phase', 'scores', 'seq'])",
+          "gameId": { ".validate": "newData.isString() && newData.val().length <= 32" },
+          "status": { ".validate": "newData.val() === 'playing' || newData.val() === 'done'" },
+          "phase": { ".validate": "newData.val() === 'answering' || newData.val() === 'revealed'" },
+          "round": { ".validate": "newData.isNumber()" },
+          "order": {
+            "$k": { ".validate": "newData.isNumber()" }
+          },
+          "answers": {
+            "$role": {
+              ".validate": "($role === 'me' || $role === 'her') && newData.hasChildren(['v'])",
+              "v": { ".validate": "newData.isString() && newData.val().length <= 300" },
+              "$other": { ".validate": false }
+            }
+          },
+          "agree": {
+            "$role": { ".validate": "($role === 'me' || $role === 'her') && newData.isBoolean()" }
+          },
+          "correct": { ".validate": "newData.isBoolean()" },
+          "scores": {
+            ".validate": "newData.hasChildren(['me', 'her'])",
+            "me": { ".validate": "newData.isNumber()" },
+            "her": { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          },
+          "history": {
+            "$k": { ".validate": "newData.hasChildren(['q', 'correct'])" }
+          },
+          "seq": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        },
 
         "$other": { ".validate": false }
       }
